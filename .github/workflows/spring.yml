@@ -1,0 +1,23 @@
+name: Deploy EC2
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ssh ec2로그인
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ubuntu
+          key: ${{ secrets.PASSWORD }}
+          script: |
+            cd /home/ubuntu/2025spring
+            git config --global --add safe.directory /home/ubuntu/2025spring
+            sudo git pull origin main
+            sudo ./gradlew clearn bootWar
+            sudo fuser -k -n tcp 8080
+            sudo nohup java -jar build/libs/*SNAPSHOT.war > /dev/null 2>&1 &
