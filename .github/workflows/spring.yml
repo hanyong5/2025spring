@@ -20,4 +20,4 @@ jobs:
             sudo git pull origin main
             sudo ./gradlew clean bootWar
             sudo fuser -k -n tcp 8080
-            sudo nohup java -jar build/libs/*SNAPSHOT.war > app.log 2>&1 &
+            sudo nohup java -jar build/libs/*SNAPSHOT.war > /dev/null 2>&1 &
