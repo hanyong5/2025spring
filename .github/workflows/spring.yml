@@ -21,4 +21,3 @@ jobs:
             sudo ./gradlew clean bootWar
             sudo fuser -k -n tcp 8080
             sudo nohup java -jar build/libs/*SNAPSHOT.war > app.log 2>&1 &
-            sudo tail -f ~/app.log
